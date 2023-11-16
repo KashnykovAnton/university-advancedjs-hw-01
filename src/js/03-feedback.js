@@ -6,7 +6,7 @@ const LS_KEY = 'feedback-form-state';
 const { email, message } = form.elements;
 const savedData = JSON.parse(localStorage.getItem(LS_KEY));
 
-const formData = {
+let formData = {
   email: savedData ? savedData.email : '',
   message: savedData ? savedData.message : '',
 };
@@ -25,7 +25,7 @@ function onFormInput(e) {
     formData.email = value;
   }
   if (name === 'message') {
-    formData.message = value;
+    formData.message = value.trim();
   }
 
   localStorage.setItem(LS_KEY, JSON.stringify(formData));
@@ -33,7 +33,16 @@ function onFormInput(e) {
 
 function onFormSubmit(e) {
   e.preventDefault();
+
+  if (!formData.email) {
+    return alert('Please type your email');
+  }
+  if (!formData.message) {
+    return alert('Please type your message');
+  }
+
   localStorage.removeItem(LS_KEY);
   form.reset();
   console.log(formData);
+  formData = {};
 }
