@@ -33,14 +33,9 @@ function onFormInput(e) {
 
 function onFormSubmit(e) {
   e.preventDefault();
-
-  if (!formData.email) {
-    return alert('Please type your email');
+  if (!email.value || !message.value) {
+     return alert(`Please fill in the ${email.value ? "Message" : "Email"} field`);
   }
-  if (!formData.message) {
-    return alert('Please type your message');
-  }
-
   localStorage.removeItem(LS_KEY);
   form.reset();
   console.log(formData);
